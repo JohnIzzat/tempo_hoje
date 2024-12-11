@@ -1,5 +1,5 @@
 const API_KEY = '137cb54d58a1a69d7d052cabebf5998f'; // Substitua com sua chave da API
-const city = 'Rio de Janeiro'; // Substitua pela cidade desejada
+const city = ''; // Substitua pela cidade desejada
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
 fetch(url)
