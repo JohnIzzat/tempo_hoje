@@ -1,15 +1,42 @@
-const API_KEY = '137cb54d58a1a69d7d052cabebf5998f'; // Substitua com sua chave da API
-const city = ''; // Substitua pela cidade desejada
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+// Variávreis e seleção de elementos
 
-fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        const weatherDiv = document.getElementById('weather');
-        weatherDiv.innerHTML = `
-            <p>Location: ${data.name}</p>
-            <p>Temperature: ${data.main.temp}°C</p>
-            <p>Weather: ${data.weather[0].description}</p>
-        `;
-    })
-    .catch(error => console.error('Error fetching weather data:', error));
+const apiKey = '137cb54d58a1a69d7d052cabebf5998f'; // Substitua com sua chave da API
+const apiCountryRL = "https://flagsapi.com/";
+
+const cityInput = document.querySelector("#city-input");
+const searchBtn = document.querySelector("#search");
+
+const cityElement = document.querySelector("#city");
+const tempElement = document.querySelector("#temperature span");
+const descElement = document.querySelector("#description");
+const weatherIconElement = document.querySelector("#weather-icon");
+const countryElement = document.querySelector("#country");
+const umidityElement = document.querySelector("#umidity span");
+const windElement = document.querySelector("#wind span");
+
+// Funções
+const getWeatherData = async(city) => {
+
+    const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
+
+    const res = await fetch(apiWeatherURL);
+    const data = await res.json();
+
+    console.log(data);
+
+}
+
+
+const showWeatherData = (city) => {
+    getWeatherData(city);
+};
+
+
+// Eventos
+searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const city = cityInput.value;
+
+    showWeatherData(city);
+});
