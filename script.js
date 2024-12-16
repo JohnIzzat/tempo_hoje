@@ -1,7 +1,7 @@
 // Variávreis e seleção de elementos
 
 const apiKey = '137cb54d58a1a69d7d052cabebf5998f'; // Substitua com sua chave da API
-const apiCountryRL = "https://flagsapi.com/";
+const apiCountryRL = "";
 
 const cityInput = document.querySelector("#city-input");
 const searchBtn = document.querySelector("#search");
@@ -13,6 +13,15 @@ const weatherIconElement = document.querySelector("#weather-icon");
 const countryElement = document.querySelector("#country");
 const humidityElement = document.querySelector("#humidity span");
 const windElement = document.querySelector("#wind span");
+
+const weatherContainer = document.querySelector("#weather-data");
+
+const errorMessageContainer = document.querySelector("#error-message");
+const loader = document.querySelector("#loader");
+
+const suggestionContainer = document.querySelector("#suggestions");
+const suggestionButtons = document.querySelectorAll("#suggestions button");
+
 
 // Funções
 const getWeatherData = async(city) => {
@@ -35,8 +44,10 @@ const showWeatherData = async (city) => {
     );
 
     countryElement.setAttribute("src", apiCountryRL + data.sys.country);
-    humidityElement.innerText = `${data.main.humidityElement}%`;
+    humidityElement.innerText = `${data.main.humidity}%`;
     windElement.innerText = `${data.wind.speed}km/h`;
+
+    weatherContainer.classList.remove("hide");
 };
 
 
@@ -47,4 +58,12 @@ searchBtn.addEventListener("click", (e) => {
     const city = cityInput.value;
 
     showWeatherData(city);
+});
+
+cityInput.addEventListener("keyup", (e) => {
+    if (e.code === "Enter") {
+        const city = e.target.value;
+
+        showWeatherData(city);
+    }
 });
